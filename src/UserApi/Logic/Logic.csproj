@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <OutputType>Library</OutputType>
+    <Nullable>enable</Nullable>
+	  <RootNamespace>UserApi.Logic</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<ProjectReference Include="..\..\UserApi\Dal\Dal.csproj" />
+  </ItemGroup>
+
+</Project>
