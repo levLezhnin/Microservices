@@ -15,7 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Libs\CoreLib\CoreLib.csproj" />
-	  <ProjectReference Include="..\Logic\Logic.csproj" />
+	<ProjectReference Include="..\Logic\Logic.csproj" />
+	<ProjectReference Include="..\..\Libs\UserConnectionLib\UserConnectionLib.csproj"/>
   </ItemGroup>
 
 </Project>
