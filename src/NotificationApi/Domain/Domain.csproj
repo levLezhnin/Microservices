@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Libs\CoreLib\CoreLib.csproj" />
+	  <ProjectReference Include="..\..\Libs\UserConnectionLib\UserConnectionLib.csproj" />
   </ItemGroup>
 
 </Project>

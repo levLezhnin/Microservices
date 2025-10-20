@@ -1,13 +1,25 @@
-﻿using CoreLib.Dto;
-using NotificationApi.Domain.Interfaces;
+﻿using NotificationApi.Domain.Interfaces;
+using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfo;
+using UserConnectionLib.ConnectionServices.Interfaces;
 
 namespace NotificationApi.Infrastructure.Connections.REST
 {
     public class GetUserInfo : IGetUserInfo
     {
-        public async Task<UserInfoDto> getUserInfo(Guid userId)
+
+        private readonly IUserConnectionService _userConnectionService;
+
+        public GetUserInfo(IUserConnectionService userConnectionService)
         {
-            throw new NotImplementedException();
+            _userConnectionService = userConnectionService;
+        }
+
+        public async Task<UserInfoDtoResponse> getUserInfo(Guid userId)
+        {
+            return await _userConnectionService.GetUserInfo(new UserInfoDtoRequest
+            {
+                userGuid = userId
+            });
         }
     }
 }

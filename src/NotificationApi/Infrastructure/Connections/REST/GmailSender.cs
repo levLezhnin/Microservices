@@ -16,10 +16,10 @@ namespace NotificationApi.Infrastructure.Connections.REST
         public GmailSender(IOptions<EmailConfig> emailConfig)
         {
             _emailConfig = emailConfig.Value;
-            _smtpClient = new SmtpClient { 
+            _smtpClient = new SmtpClient {
                 Host = _emailConfig.SmtpServer,
                 Port = _emailConfig.Port,
-                EnableSsl = true,
+                EnableSsl = false,
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(_emailConfig.Username, _emailConfig.Password),
                 DeliveryMethod = SmtpDeliveryMethod.Network,

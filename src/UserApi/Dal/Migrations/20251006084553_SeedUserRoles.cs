@@ -11,26 +11,36 @@ namespace UserApi.Dal.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var values = new List<object[]>();
-            foreach (ExistingRoles role in Enum.GetValues(typeof(ExistingRoles)))
+            var roles = Enum.GetValues(typeof(ExistingRoles))
+                .Cast<ExistingRoles>()
+                .ToArray();
+            object[,] vals = new object[roles.Length, 2];
+
+            for (int i = 0; i < roles.Length; ++i)
             {
-                values.Add(new object[]{ role.ToString(), Guid.NewGuid() });
+                vals[i, 0] = Guid.NewGuid();
+                vals[i, 1] = roles[i].ToString();
             }
 
             migrationBuilder.InsertData(
                 table: "user_roles",
-                columns: new[] { "Role", "Id" },
-                values: values.ToArray()
+                columns: new[] { "Id", "Role" },
+                values: vals
             );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            object[] keyValues = Enum.GetValues(typeof(ExistingRoles))
+                .Cast<ExistingRoles>()
+                .Select(role => role.ToString())
+                .ToArray();
+
             migrationBuilder.DeleteData(
                 table: "user_roles",
                 keyColumn: "Role",
-                keyValues: ["User", "Support", "Admin"]
+                keyValues: keyValues
             );
         }
     }

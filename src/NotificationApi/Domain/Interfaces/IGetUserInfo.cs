@@ -1,9 +1,9 @@
-﻿using CoreLib.Dto;
+﻿using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfo;
 
 namespace NotificationApi.Domain.Interfaces
 {
     public interface IGetUserInfo
     {
-        Task<UserInfoDto> getUserInfo(Guid userId);
+        Task<UserInfoDtoResponse> getUserInfo(Guid userId);
     }
 }

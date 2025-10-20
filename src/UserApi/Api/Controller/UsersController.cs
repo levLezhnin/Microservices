@@ -2,6 +2,7 @@
 using UserApi.Api.Dto.Request;
 using UserApi.Api.Dto.Response;
 using UserApi.Api.Interfaces;
+using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfo;
 
 namespace UserApi.Api.Controller
 {
@@ -32,6 +33,12 @@ namespace UserApi.Api.Controller
         public async Task<UserResponseDto> findById([FromRoute] Guid id)
         {
             return await _userControllerService.findByIdOrThrowAsync(id);
+        }
+
+        [HttpGet("{id}/info")]
+        public async Task<UserInfoDtoResponse> findUserInfoById([FromRoute] Guid id)
+        {
+            return await _userControllerService.findInfoByIdAsync(id);
         }
 
         [HttpGet("")]
