@@ -4,6 +4,7 @@ using UserApi.Api.Interfaces;
 using UserApi.Logic.Interfaces;
 using UserApi.Logic.Models;
 using CoreLib.Interfaces;
+using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfo;
 
 namespace UserApi.Api.Implementations
 {
@@ -48,6 +49,17 @@ namespace UserApi.Api.Implementations
         public async Task<UserResponseDto?> findByIdAsync(Guid id)
         {
             return _mapper.toDto(await _userService.findByIdAsync(id));
+        }
+
+        public async Task<UserInfoDtoResponse> findInfoByIdAsync(Guid id)
+        {
+            UserLogic? resp = await _userService.findByIdOrThrowAsync(id);
+            return new UserInfoDtoResponse
+            {
+                firstName = resp.FirstName,
+                lastName = resp.LastName,
+                email = resp.Email
+            };
         }
 
         public async Task<UserResponseDto> findByIdOrThrowAsync(Guid id)

@@ -1,26 +1,29 @@
 ﻿using CoreLib.Common;
-using CoreLib.Dto;
+using CoreLib.Interfaces;
 using NotificationApi.Domain.Entities;
 using NotificationApi.Domain.Interfaces;
 using NotificationApi.Services.Interfaces;
+using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfo;
 
 namespace NotificationApi.Services.Implementations
 {
     public class CreateNotification : ICreateNotification
     {
         private IGetUserInfo _getUserInfo;
+        private IMapper<UserInfoDtoResponse, UserInfo> _mapper;
 
-        public CreateNotification(IGetUserInfo getUserInfo)
+        public CreateNotification(IGetUserInfo getUserInfo, IMapper<UserInfoDtoResponse, UserInfo> mapper)
         {
             _getUserInfo = getUserInfo;
+            _mapper = mapper;
         }
 
         public async Task<Notification> createNotification(Guid? srcUserId, Guid destUserId, string notificationType, string message)
         {
             NotificationType type = (NotificationType) Enum.Parse(typeof(NotificationType), notificationType);
 
-            UserInfoDto srcUserInfo = null;
-            UserInfoDto destUserInfo = await _getUserInfo.getUserInfo(destUserId);
+            UserInfo srcUserInfo = null;
+            UserInfo destUserInfo = _mapper.map(await _getUserInfo.getUserInfo(destUserId));
 
             string notificationMessage;
             switch (type)
@@ -32,7 +35,7 @@ namespace NotificationApi.Services.Implementations
                             throw new ArgumentException("Не могу отправить сообщение от пользователя с id: " + null);
                         }
 
-                        srcUserInfo = await _getUserInfo.getUserInfo(srcUserId.Value);
+                        srcUserInfo = _mapper.map(await _getUserInfo.getUserInfo(srcUserId.Value));
 
                         notificationMessage = string.Format("Сообщение от пользователя {0} {1}:\n{2}", srcUserInfo.firstName, srcUserInfo.lastName, message);
                         break;

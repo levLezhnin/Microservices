@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLib", "..\Libs\CoreLib\CoreLib.csproj", "{D631F9F3-70F3-4243-83E8-6C062111CE76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserConnectionLib", "..\Libs\UserConnectionLib\UserConnectionLib.csproj", "{FD1C7922-AE41-8296-7170-06D33BC428FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{D631F9F3-70F3-4243-83E8-6C062111CE76}.Release|x64.Build.0 = Release|Any CPU
 		{D631F9F3-70F3-4243-83E8-6C062111CE76}.Release|x86.ActiveCfg = Release|Any CPU
 		{D631F9F3-70F3-4243-83E8-6C062111CE76}.Release|x86.Build.0 = Release|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Debug|x64.Build.0 = Debug|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Debug|x86.Build.0 = Debug|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Release|x64.ActiveCfg = Release|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Release|x64.Build.0 = Release|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Release|x86.ActiveCfg = Release|Any CPU
+		{FD1C7922-AE41-8296-7170-06D33BC428FF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
