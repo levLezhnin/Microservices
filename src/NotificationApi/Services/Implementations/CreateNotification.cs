@@ -1,4 +1,5 @@
 ﻿using CoreLib.Common;
+using CoreLib.Exceptions;
 using CoreLib.Interfaces;
 using NotificationApi.Domain.Entities;
 using NotificationApi.Domain.Interfaces;
@@ -22,8 +23,13 @@ namespace NotificationApi.Services.Implementations
         {
             NotificationType type = (NotificationType) Enum.Parse(typeof(NotificationType), notificationType);
 
-            UserInfo srcUserInfo = null;
-            UserInfo destUserInfo = _mapper.map(await _getUserInfo.getUserInfo(destUserId));
+            UserInfo? srcUserInfo = null;
+            UserInfo? destUserInfo = _mapper.map(await _getUserInfo.getUserInfo(destUserId));
+
+            if (destUserInfo is null)
+            {
+                throw new ServiceException($"Адресат с id: {srcUserId} не найден!");
+            }
 
             string notificationMessage;
             switch (type)
@@ -36,6 +42,11 @@ namespace NotificationApi.Services.Implementations
                         }
 
                         srcUserInfo = _mapper.map(await _getUserInfo.getUserInfo(srcUserId.Value));
+
+                        if (srcUserInfo is null)
+                        {
+                            throw new ServiceException($"Отправитель с id: {srcUserId} не найден!");
+                        }
 
                         notificationMessage = string.Format("Сообщение от пользователя {0} {1}:\n{2}", srcUserInfo.firstName, srcUserInfo.lastName, message);
                         break;

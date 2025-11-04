@@ -1,6 +1,6 @@
 services:
     users-db:
-        container_name: postgres
+        container_name: postgres_users
         image: postgres:latest
         env_file:
             - .env
@@ -14,6 +14,32 @@ services:
             - app-network
         volumes:
             - users-data:/var/lib/postgresql/users-data
+    tickets-db:
+        container_name: postgres_tickets
+        image: postgres:latest
+        env_file:
+            - .env
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: tickets_db
+        ports:
+            - "5433:5432"
+        networks:
+            - app-network
+        volumes:
+            - tickets-data:/var/lib/postgresql/tickets-data
+    ticket-events-db:
+        image: mongo:latest
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: mongo
+          MONGO_INITDB_ROOT_PASSWORD: mongo
+        ports:
+          - "27017:27017"
+        volumes:
+          - ticket-events-data:/data/ticket-events-db
+        networks:
+          - app-network
     papercut:
         image: jijiechen/papercut:latest
         container_name: papercut
@@ -23,22 +49,20 @@ services:
         restart: unless-stopped
     rabbitmq:
         image: rabbitmq:management
-        env_file:
-            /src/NotificationApi/Api/.env
-        hostname: ${RABBITMQ__HOST}
+        hostname: localhost
         restart: always
         environment:
-            - RABBITMQ_DEFAULT_USER=${RABBITMQ__USERNAME}
-            - RABBITMQ_DEFAULT_PASS=${RABBITMQ__PASSWORD}
+            - RABBITMQ_DEFAULT_USER=rabbit_user
+            - RABBITMQ_DEFAULT_PASS=rabbit_password
             - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit disk_free_limit 2147483648
         command: |
             bash -c "
             rabbitmq-plugins enable rabbitmq_management;
             rabbitmq-server &
             sleep 10;
-            rabbitmqctl add_user ${RABBITMQ__USERNAME} ${RABBITMQ__PASSWORD};
-            rabbitmqctl set_user_tags ${RABBITMQ__USERNAME} administrator;
-            rabbitmqctl set_permissions -p / ${RABBITMQ__USERNAME} '.*' '.*' '.*';
+            rabbitmqctl add_user rabbit_user rabbit_password;
+            rabbitmqctl set_user_tags rabbit_user administrator;
+            rabbitmqctl set_permissions -p / rabbit_user '.*' '.*' '.*';
             wait"
         volumes:
             - rabbitmq:/var/lib/rabbitmq
@@ -48,6 +72,8 @@ services:
             - '15672:15672'
 volumes:
     users-data:
+    tickets-data:
+    ticket-events-data:
     rabbitmq:
 
 networks:

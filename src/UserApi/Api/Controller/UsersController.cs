@@ -3,6 +3,7 @@ using UserApi.Api.Dto.Request;
 using UserApi.Api.Dto.Response;
 using UserApi.Api.Interfaces;
 using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfo;
+using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfoWithRole;
 
 namespace UserApi.Api.Controller
 {
@@ -39,6 +40,12 @@ namespace UserApi.Api.Controller
         public async Task<UserInfoDtoResponse> findUserInfoById([FromRoute] Guid id)
         {
             return await _userControllerService.findInfoByIdAsync(id);
+        }
+
+        [HttpGet("{id}/infoWithRole")]
+        public async Task<UserInfoWithRoleResponse> findUserInfoWithRoleById([FromRoute] Guid id)
+        {
+            return await _userControllerService.findInfoWithRoleByIdAsync(id);
         }
 
         [HttpGet("")]

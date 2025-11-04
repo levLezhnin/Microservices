@@ -1,10 +1,10 @@
-using UserApi.Dal;
-using UserApi.Dal.Config;
-
-using UserApi.Logic;
-
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using UserApi.Api.Exceptions;
+using UserApi.Dal;
+using UserApi.Dal.Config;
+using UserApi.Logic;
+using UserApi.Logic.Saga;
 
 namespace UserApi.Api
 {
@@ -32,6 +32,22 @@ namespace UserApi.Api
             builder.Services.AddControllers(options =>
             {
                 options.Filters.Add<ExceptionFilter>();
+            });
+
+            builder.Services.AddMassTransit(x =>
+            {
+                x.AddConsumer<SupportAgentUpdateEventConsumer>();
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("localhost", "/", h =>
+                    {
+                        h.Username("rabbit_user");
+                        h.Password("rabbit_password");
+                    });
+
+                    cfg.ConfigureEndpoints(context);
+                });
             });
 
             var app = builder.Build();
