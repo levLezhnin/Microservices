@@ -6,9 +6,9 @@ namespace NotificationApi.Services.Mapper
 {
     public class UserInfoMapper : IMapper<UserInfoDtoResponse, UserInfo>
     {
-        public UserInfo? map(UserInfoDtoResponse from)
+        public UserInfo? map(UserInfoDtoResponse? from)
         {
-            if (from == null)
+            if (from is null)
             {
                 return null;
             }

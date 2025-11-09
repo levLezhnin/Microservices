@@ -9,11 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="8.5.5" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.5" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.9" />
   </ItemGroup>
 
   <ItemGroup>
 	<ProjectReference Include="..\..\UserApi\Dal\Dal.csproj" />
+	<ProjectReference Include="..\..\Libs\Contracts\Contracts.csproj" />
   </ItemGroup>
 
 </Project>

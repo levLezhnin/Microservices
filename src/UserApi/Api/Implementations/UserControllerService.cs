@@ -5,6 +5,7 @@ using UserApi.Logic.Interfaces;
 using UserApi.Logic.Models;
 using CoreLib.Interfaces;
 using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfo;
+using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfoWithRole;
 
 namespace UserApi.Api.Implementations
 {
@@ -59,6 +60,18 @@ namespace UserApi.Api.Implementations
                 firstName = resp.FirstName,
                 lastName = resp.LastName,
                 email = resp.Email
+            };
+        }
+
+        public async Task<UserInfoWithRoleResponse> findInfoWithRoleByIdAsync(Guid id)
+        {
+            UserLogic? resp = await _userService.findByIdOrThrowAsync(id);
+            return new UserInfoWithRoleResponse
+            {
+                firstName = resp.FirstName,
+                lastName = resp.LastName,
+                email = resp.Email,
+                role = resp.Role
             };
         }
 

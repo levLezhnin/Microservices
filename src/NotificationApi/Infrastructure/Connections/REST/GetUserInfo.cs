@@ -14,7 +14,7 @@ namespace NotificationApi.Infrastructure.Connections.REST
             _userConnectionService = userConnectionService;
         }
 
-        public async Task<UserInfoDtoResponse> getUserInfo(Guid userId)
+        public async Task<UserInfoDtoResponse?> getUserInfo(Guid userId)
         {
             return await _userConnectionService.GetUserInfo(new UserInfoDtoRequest
             {

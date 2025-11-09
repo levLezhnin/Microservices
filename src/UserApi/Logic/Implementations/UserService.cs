@@ -1,4 +1,5 @@
-﻿using CoreLib.Exceptions;
+﻿using CoreLib.Common;
+using CoreLib.Exceptions;
 using CoreLib.Interfaces;
 using UserApi.Dal.Interfaces;
 using UserApi.Dal.Models;
@@ -29,7 +30,7 @@ namespace UserApi.Logic.Implementations
             }
             catch (EntityNotFoundException ex) { }
 
-            if (!Enum.TryParse(userLogic.Role, out ExistingRoles existingRoles))
+            if (!Enum.TryParse(userLogic.Role, out UserRoles existingRoles))
             {
                 throw new ArgumentException($"Роль с названием: {userLogic.Role} не найдена!");
             }
@@ -37,7 +38,7 @@ namespace UserApi.Logic.Implementations
             UserDal dal = _mapper.mapBackward(userLogic);
             UserLogic created = _mapper.mapForward(await _userRepository.insert(dal));
 
-            if (userLogic.Role.Equals(ExistingRoles.Support.ToString()))
+            if (userLogic.Role.Equals(UserRoles.Support.ToString()))
             {
                 await _supportMetricsRepository.insert(new SupportMetricsDal
                 {

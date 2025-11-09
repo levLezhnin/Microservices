@@ -4,6 +4,6 @@ namespace NotificationApi.Domain.Interfaces
 {
     public interface IGetUserInfo
     {
-        Task<UserInfoDtoResponse> getUserInfo(Guid userId);
+        Task<UserInfoDtoResponse?> getUserInfo(Guid userId);
     }
 }

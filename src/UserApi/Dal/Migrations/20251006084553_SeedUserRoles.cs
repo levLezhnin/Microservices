@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using CoreLib.Common;
+using Microsoft.EntityFrameworkCore.Migrations;
 using UserApi.Dal.Models;
 
 #nullable disable
@@ -11,8 +12,8 @@ namespace UserApi.Dal.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var roles = Enum.GetValues(typeof(ExistingRoles))
-                .Cast<ExistingRoles>()
+            var roles = Enum.GetValues(typeof(UserRoles))
+                .Cast<UserRoles>()
                 .ToArray();
             object[,] vals = new object[roles.Length, 2];
 
@@ -32,8 +33,8 @@ namespace UserApi.Dal.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            object[] keyValues = Enum.GetValues(typeof(ExistingRoles))
-                .Cast<ExistingRoles>()
+            object[] keyValues = Enum.GetValues(typeof(UserRoles))
+                .Cast<UserRoles>()
                 .Select(role => role.ToString())
                 .ToArray();
 

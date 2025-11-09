@@ -1,6 +1,7 @@
 ﻿using UserApi.Api.Dto.Request;
 using UserApi.Api.Dto.Response;
 using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfo;
+using UserConnectionLib.ConnectionServices.DtoModels.GetUserInfoWithRole;
 
 namespace UserApi.Api.Interfaces
 {
@@ -14,6 +15,7 @@ namespace UserApi.Api.Interfaces
         Task<UserResponseDto> findByIdOrThrowAsync(Guid id);
 
         Task<UserInfoDtoResponse> findInfoByIdAsync(Guid id);
+        Task<UserInfoWithRoleResponse> findInfoWithRoleByIdAsync(Guid id);
         Task<UserResponseDto?> findByEmailAsync(string email);
         Task<UserResponseDto> findByEmailOrThrowAsync(string email);
     }
