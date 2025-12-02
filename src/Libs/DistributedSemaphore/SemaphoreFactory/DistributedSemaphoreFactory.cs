@@ -1,4 +1,5 @@
 ﻿using Consul;
+using DistributedSemaphore.Semaphore;
 using StackExchange.Redis;
 
 namespace DistributedSemaphore.SemaphoreFactory
